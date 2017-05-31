@@ -71,7 +71,7 @@ module Telegraph
     Telegraph.post method
   end
 
-  def Telegraph.edit_page(request) # REDO
+  def Telegraph.edit_page(request)
     access_token   = request[:access_token] # required
     path           = request[:path]         # required
     title          = request[:title]        # required
@@ -80,24 +80,22 @@ module Telegraph
     author_url     = request[:author_url]
     return_content = request[:return_content]
 
-    method =  "editpage?access_token=#{access_token}"
+    method =  "editpage/#{path}?access_token=#{access_token}"
     method << "&title=#{title}"
     method << "&content=#{content}"
     method << "&author_name=#{author_name}"       unless author_name.nil?
     method << "&author_url=#{author_url}"         unless author_url.nil?
     method << "&return_content=#{return_content}" unless return_content.nil?
-    method << "/#{path}"
 
     Telegraph.post method
   end
 
-  def Telegraph.get_page(request) # REDO
+  def Telegraph.get_page(request)
     path           = request[:path] # required
     return_content = request[:return_content]
 
-    method =  "getPage"
+    method =  "getPage/#{path}"
     method << "&return_content=#{return_content}" unless return_content.nil?
-    method << "/#{path}"
 
     Telegraph.post method
   end
@@ -114,28 +112,23 @@ module Telegraph
     Telegraph.post method
   end
 
-  def Telegraph.get_views(request) # REDO
+  def Telegraph.get_views(request)
     path  = request[:path] # required
     year  = request[:year]
     month = request[:month]
     day   = request[:day]
     hour  = request[:hour]
 
-    method =  "getViews"
-    method << "?hour=#{hour}"   unless hour.nil?
-    method << "&day=#{day}"     unless day.nil?
+    method =  "getViews/#{path}"
+    method << "?year=#{year}"   unless year.nil?
     method << "&month=#{month}" unless month.nil?
-    method << "&year=#{year}"   unless year.nil?
-    method << "/#{path}"
+    method << "&day=#{day}"     unless day.nil?
+    method << "&hour=#{hour}"   unless hour.nil?
 
     Telegraph.post method
   end
 end
 
 puts Telegraph.get_views({
-  :year  => 2017,
-  :month => 5,
-  :day   => 30,
-  :hour  => 15,
   :path  => "Besit-11-Dvernye-ruchki-05-28"
 })
