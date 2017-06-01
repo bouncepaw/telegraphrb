@@ -1,11 +1,11 @@
 # coding: utf-8
-%w(http).each { |f| require f }
+require "http"
 
 # do you like my badass align?
 module Telegraph
   def Telegraph.post(method)
     puts "Got method: #{method}"
-    HTTP.post("https://api.telegra.ph/#{method}")
+    puts HTTP.post("https://api.telegra.ph/#{method}")
       .to_s.gsub(/\\u([0-9a-fA-F]{4})/) { |m| [$1.hex].pack("U") }
   end
 
@@ -15,8 +15,8 @@ module Telegraph
     author_url  = request[:author_url]
 
     method =  "createAccount?short_name=#{short_name}"
-    method << "&author_name=#{author_name}" unless author_name.nil?
-    method << "&author_url=#{author_url}"   unless author_name.nil?
+    method << "&author_name=#{author_name}" if author_name
+    method << "&author_url=#{author_url}"   if author_name
 
     Telegraph.post method
   end
@@ -28,9 +28,9 @@ module Telegraph
     author_url   = request[:author_url]
 
     method =  "editAccountInfo?access_token=#{access_token}"
-    method << "&short_name=#{short_name}"   unless short_name.nil?
-    method << "&author_name=#{author_name}" unless author_name.nil?
-    method << "&author_url=#{author_url}"   unless author_url.nil?
+    method << "&short_name=#{short_name}"   if short_name
+    method << "&author_name=#{author_name}" if author_name
+    method << "&author_url=#{author_url}"   if author_url
 
     Telegraph.post method
   end
@@ -40,7 +40,7 @@ module Telegraph
     fields       = request[:fields]
 
     method =  "getAccountInfo?access_token=#{access_token}"
-    method << "&fields=#{fields}" unless fields.nil?
+    method << "&fields=#{fields}" if fields
 
     Telegraph.post method
   end
@@ -63,10 +63,10 @@ module Telegraph
 
     method =  "createPage?access_token=#{access_token}"
     method << "&title=#{title}"
-    method << "&author_name=#{author_name}"       unless author_name.nil?
-    method << "&author_url=#{author_url}"         unless author_url.nil?
+    method << "&author_name=#{author_name}"       if author_name
+    method << "&author_url=#{author_url}"         if author_url
     method << "&content=#{content}"
-    method << "&return_content=#{return_content}" unless return_content.nil?
+    method << "&return_content=#{return_content}" if return_content
 
     Telegraph.post method
   end
@@ -83,9 +83,9 @@ module Telegraph
     method =  "editpage/#{path}?access_token=#{access_token}"
     method << "&title=#{title}"
     method << "&content=#{content}"
-    method << "&author_name=#{author_name}"       unless author_name.nil?
-    method << "&author_url=#{author_url}"         unless author_url.nil?
-    method << "&return_content=#{return_content}" unless return_content.nil?
+    method << "&author_name=#{author_name}"       if author_name
+    method << "&author_url=#{author_url}"         if author_url
+    method << "&return_content=#{return_content}" if return_content
 
     Telegraph.post method
   end
@@ -95,7 +95,7 @@ module Telegraph
     return_content = request[:return_content]
 
     method =  "getPage/#{path}"
-    method << "&return_content=#{return_content}" unless return_content.nil?
+    method << "&return_content=#{return_content}" if return_content
 
     Telegraph.post method
   end
@@ -106,8 +106,8 @@ module Telegraph
     limit        = request[:limit]
 
     method =  "getPageList?access_token=#{access_token}"
-    method << "&offset=#{offset}" unless offset.nil?
-    method << "&limit=#{limit}"   unless limit.nil?
+    method << "&offset=#{offset}" if offset
+    method << "&limit=#{limit}"   if limit
 
     Telegraph.post method
   end
@@ -120,15 +120,12 @@ module Telegraph
     hour  = request[:hour]
 
     method =  "getViews/#{path}"
-    method << "?year=#{year}"   unless year.nil?
-    method << "&month=#{month}" unless month.nil?
-    method << "&day=#{day}"     unless day.nil?
-    method << "&hour=#{hour}"   unless hour.nil?
+    method << "?year=#{year}"   if year
+    method << "&month=#{month}" if month
+    method << "&day=#{day}"     if day
+    method << "&hour=#{hour}"   if hour
 
     Telegraph.post method
   end
 end
 
-puts Telegraph.get_views({
-  :path  => "Besit-11-Dvernye-ruchki-05-28"
-})
