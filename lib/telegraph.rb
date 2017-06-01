@@ -9,121 +9,79 @@ module Telegraph
       .to_s.gsub(/\\u([0-9a-fA-F]{4})/) { |m| [$1.hex].pack("U") }
   end
 
-  def Telegraph.create_account(request)
-    short_name  = request[:short_name] # required
-    author_name = request[:author_name]
-    author_url  = request[:author_url]
-
-    method =  "createAccount?short_name=#{short_name}"
-    method << "&author_name=#{author_name}" if author_name
-    method << "&author_url=#{author_url}"   if author_name
+  def Telegraph.create_account(r)
+    method =  "createAccount?short_name=#{r[:short_name]}"
+    method << "&author_name=#{r[:author_name]}" if r[:author_name]
+    method << "&author_url=#{r[:author_url]}"   if r[:author_url]
 
     Telegraph.post method
   end
 
-  def Telegraph.edit_account_info(request)
-    access_token = request[:access_token] # required
-    short_name   = request[:short_name]
-    author_name  = request[:author_name]
-    author_url   = request[:author_url]
-
-    method =  "editAccountInfo?access_token=#{access_token}"
-    method << "&short_name=#{short_name}"   if short_name
-    method << "&author_name=#{author_name}" if author_name
-    method << "&author_url=#{author_url}"   if author_url
+  def Telegraph.edit_account_info(r)
+    method =  "editAccountInfo?access_token=#{r[:access_token]}"
+    method << "&short_name=#{r[:short_name]}"   if r[:short_name]
+    method << "&author_name=#{r[:author_name]}" if r[:author_name]
+    method << "&author_url=#{r[:author_url]}"   if r[:author_url]
 
     Telegraph.post method
   end
 
-  def Telegraph.get_account_info(request)
-    access_token = request[:access_token] # required
-    fields       = request[:fields]
-
-    method =  "getAccountInfo?access_token=#{access_token}"
-    method << "&fields=#{fields}" if fields
+  def Telegraph.get_account_info(r)
+    method =  "getAccountInfo?access_token=#{r[:access_token]}"
+    method << "&fields=#{r[:fields]}" if r[:fields]
 
     Telegraph.post method
   end
 
-  def Telegraph.revoke_access_token(request)
-    access_token = request[:access_token] # required
-
-    method = "revokeAccessToken?access_token=#{access_token}"
+  def Telegraph.revoke_access_token(r)
+    method = "revokeAccessToken?access_token=#{r[:access_token]}"
 
     Telegraph.post method
   end
 
-  def Telegraph.create_page(request)
-    access_token   = request[:access_token] # required
-    title          = request[:title]        # required
-    author_name    = request[:author_name]
-    author_url     = request[:author_url]
-    content        = request[:content]      # required
-    return_content = request[:return_content]
-
-    method =  "createPage?access_token=#{access_token}"
-    method << "&title=#{title}"
-    method << "&author_name=#{author_name}"       if author_name
-    method << "&author_url=#{author_url}"         if author_url
-    method << "&content=#{content}"
-    method << "&return_content=#{return_content}" if return_content
+  def Telegraph.create_page(r)
+    method =  "createPage?access_token=#{r[:access_token]}"
+    method << "&title=#{r[:title]}"
+    method << "&author_name=#{r[:author_name]}"       if r[:author_name]
+    method << "&author_url=#{r[:author_url]}"         if r[:author_url]
+    method << "&content=#{r[:content]}"
+    method << "&return_content=#{r[:return_content]}" if r[:return_content]
 
     Telegraph.post method
   end
 
-  def Telegraph.edit_page(request)
-    access_token   = request[:access_token] # required
-    path           = request[:path]         # required
-    title          = request[:title]        # required
-    content        = request[:content]      # required
-    author_name    = request[:author_name]
-    author_url     = request[:author_url]
-    return_content = request[:return_content]
-
-    method =  "editpage/#{path}?access_token=#{access_token}"
-    method << "&title=#{title}"
-    method << "&content=#{content}"
-    method << "&author_name=#{author_name}"       if author_name
-    method << "&author_url=#{author_url}"         if author_url
-    method << "&return_content=#{return_content}" if return_content
+  def Telegraph.edit_page(r)
+    method =  "editpage/#{r[:path]}?access_token=#{r[:access_token]}"
+    method << "&title=#{r[:title]}"
+    method << "&content=#{r[:content]}"
+    method << "&author_name=#{r[:author_name]}"       if r[:author_name]
+    method << "&author_url=#{r[:author_url]}"         if r[:author_url]
+    method << "&return_content=#{r[:return_content]}" if r[:return_content]
 
     Telegraph.post method
   end
 
-  def Telegraph.get_page(request)
-    path           = request[:path] # required
-    return_content = request[:return_content]
-
-    method =  "getPage/#{path}"
-    method << "&return_content=#{return_content}" if return_content
+  def Telegraph.get_page(r)
+    method =  "getPage/#{r[:path]}"
+    method << "&return_content=#{r[:return_content]}" if r[:return_content]
 
     Telegraph.post method
   end
 
-  def Telegraph.get_page_list(request)
-    access_token = request[:access_token] # required
-    offset       = request[:offset]
-    limit        = request[:limit]
-
-    method =  "getPageList?access_token=#{access_token}"
-    method << "&offset=#{offset}" if offset
-    method << "&limit=#{limit}"   if limit
+  def Telegraph.get_page_list(r)
+    method =  "getPageList?access_token=#{r[:access_token]}"
+    method << "&offset=#{r[:offset]}" if r[:offset]
+    method << "&limit=#{r[:limit]}"   if r[:limit]
 
     Telegraph.post method
   end
 
-  def Telegraph.get_views(request)
-    path  = request[:path] # required
-    year  = request[:year]
-    month = request[:month]
-    day   = request[:day]
-    hour  = request[:hour]
-
-    method =  "getViews/#{path}"
-    method << "?year=#{year}"   if year
-    method << "&month=#{month}" if month
-    method << "&day=#{day}"     if day
-    method << "&hour=#{hour}"   if hour
+  def Telegraph.get_views(r)
+    method =  "getViews/#{r[:path]}"
+    method << "?year=#{r[:year]}"   if r[:year]
+    method << "&month=#{r[:month]}" if r[:month]
+    method << "&day=#{r[:day]}"     if r[:day]
+    method << "&hour=#{r[:hour]}"   if r[:hour]
 
     Telegraph.post method
   end
