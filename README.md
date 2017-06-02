@@ -1,15 +1,16 @@
-# Telegraph.rb
-[telegra.ph](telegra.ph) API wrapper written in Ruby :gem:
+# Telegraph.rb [DEVELOPING]
+
+​[telegra.ph](telegra.ph) API wrapper written in Ruby :gem: Please note that this wrapper is still under development
 
 ## Installation
-It will be available as gem soon, but for now use following:
+It will be available as gem soon (but now it is being developed), but for now use following:
 
 ```bash
 git clone https://github.com/bouncepaw/telegraphrb.git
 cd telegraphrb
 ```
 
-The file you need is `lib/telegraph.rb`, just copy it into your project and then require any way you want.
+The file you need is `lib/telegraph.rb`, just copy it into your project and then require any way you want. When I will finish development, I will make the gem.
 
 ## Usage
 
@@ -37,6 +38,8 @@ params = {
 Telegraph.create_account params
 ```
 
+Note that this behavior may change because this wrapper is under development.
+
 ## Contributing
 
-Fork and write anything you want. Then do a pull request, maybe I will accept it. Try to follow my code style.
+Fork and write anything you want. Then do a pull request, maybe I will accept it. Try to follow my code style. And yes, I am still developing.
