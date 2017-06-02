@@ -51,7 +51,7 @@ module Telegraph
   end
 
   def Telegraph.edit_page(r)
-    method =  "editpage/#{r[:path]}?access_token=#{r[:access_token]}"
+    method =  "editPage/#{r[:path]}?access_token=#{r[:access_token]}"
     method << "&title=#{r[:title]}"
     method << "&content=#{r[:content]}"
     method << "&author_name=#{r[:author_name]}"       if r[:author_name]
@@ -84,6 +84,19 @@ module Telegraph
     method << "&hour=#{r[:hour]}"   if r[:hour]
 
     Telegraph.post method
+  end
+
+  # Method with names as in API
+  class << self # :C
+    alias :createAccount     :create_account
+    alias :createPage        :create_page
+    alias :editAccountInfo   :edit_account_info
+    alias :editPage          :edit_page
+    alias :getAccountInfo    :get_account_info
+    alias :getPage           :get_page
+    alias :getPageList       :get_page_list
+    alias :getViews          :get_views
+    alias :revokeAccessToken :revoke_access_token
   end
 end
 

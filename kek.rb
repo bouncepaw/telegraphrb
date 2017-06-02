@@ -1,4 +1,5 @@
 require_relative "lib/telegraph"
-Telegraph.create_account({
+
+Telegraph.createAccount({
   :short_name => "cakemaster"
 })

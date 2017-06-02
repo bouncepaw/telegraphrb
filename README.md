@@ -13,7 +13,7 @@ The file you need is `lib/telegraph.rb`, just copy it into your project and then
 
 ## Usage
 
-Be sure to read the [API](telegra.ph). This wrapper implements all the methods listed in the API, but their names are changed to snake_case. Parameters are the same. For example:
+Be sure to read the [API](telegra.ph). This wrapper implements all the methods of the API. You can use either `snake_case` or `camelCase` . I recommend `snake_case`, because it is Ruby. For example:
 
 ```ruby
 require_relative "telegraph"
@@ -39,4 +39,4 @@ Telegraph.create_account params
 
 ## Contributing
 
-Fork and write anything you want. Then do a pull request, maybe I will accept it. Try to follow my code style :smile:
+Fork and write anything you want. Then do a pull request, maybe I will accept it. Try to follow my code style.
