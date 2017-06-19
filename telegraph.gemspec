@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "telegraph"
-  s.version     = "0.1.2"
+  s.version     = "0.1.3"
   s.date        = "2017-06-02"
   s.summary     = "Telegraph API wrapper"
   s.description = "Straigth-forward telegra.ph API wrapper. If you have read the API -- you know how to use this gem"

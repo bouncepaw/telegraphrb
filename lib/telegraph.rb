@@ -1,12 +1,28 @@
 # coding: utf-8
-require "http"
+%w(http json awesome_print).each { |f| require f }
 
 # do you like my badass align?
 module Telegraph
   def Telegraph.post(method)
     puts "Got method: #{method}"
-    puts HTTP.post("https://api.telegra.ph/#{method}")
+
+    # From JSON string to Ruby hash
+    data = JSON.parse(HTTP.post("https://api.telegra.ph/#{method}")
       .to_s.gsub(/\\u([0-9a-fA-F]{4})/) { |m| [$1.hex].pack("U") }
+    )
+
+    # Replace string keys with symbols
+    data.keys.each do |key|
+      data[(key.to_sym rescue key) || key] = data.delete key
+    end
+
+    # Replace other string keys with symbols
+    data[:result].keys.each do |key|
+      data[:result][(key.to_sym rescue key) || key] = data[:result].delete key
+    end
+
+    ap data
+    data
   end
 
   def Telegraph.create_account(r)
